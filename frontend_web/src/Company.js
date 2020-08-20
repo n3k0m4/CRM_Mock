@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { matchPath, useRouteMatch } from 'react-router-dom';
+
 
 function Company({ match }) {
 

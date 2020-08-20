@@ -21,7 +21,7 @@
   color: #09d3ac;
 }
 nav{
-  display: flex;
+  display: inline;
   justify-content: space-around;
   align-content: center;
   min-height: 10vh;
