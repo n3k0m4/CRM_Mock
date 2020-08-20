@@ -9,11 +9,7 @@ function Nav() {
                 <img src="./logo192.png" alt='logo' />
             </h3>
             <ul className="nav-links">
-                <Link to='/companies'>
-                    <li>
-                        Companies
-                </li>
-                </Link>
+
             </ul>
         </nav>
     )

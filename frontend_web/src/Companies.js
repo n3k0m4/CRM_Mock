@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import * as ReactBootStrap from "react-bootstrap";
+import { Button } from 'react-bootstrap';
+import Company from "./Company";
+import Switch from 'react-bootstrap/esm/Switch';
 
 
 function Companies() {
@@ -22,10 +25,6 @@ function Companies() {
 
             setItems(All_data);
         }
-
-        //console.log(All_data);
-
-        //console.log(All_data[1000]);
     };
 
     useEffect(() => {
@@ -35,10 +34,15 @@ function Companies() {
     const columns = [
         { dataField: "id", text: "id" },
         { dataField: "name", text: "Company name" },
+        {
+            dataField: "edit",
+            text: "Edit",
+            sort: false,
+            formatter: rankFormatter,
+            headerAttrs: { width: 250 },
+            attrs: { width: 250, className: "EditRow" }
+        }
     ];
-
-
-
 
     return (
         <BootstrapTable
@@ -49,4 +53,33 @@ function Companies() {
         />
     )
 }
+function rankFormatter(cell, row, rowIndex, formatExtraData) {
+    return (
+        <Router>
+            <div style={{
+                textAlign: "center",
+                cursor: "pointer",
+                lineHeight: "normal"
+            }}>
+                <Link to={`/companies/${rowIndex + 1}`}>
+                    <Button key={rowIndex} style={{
+                        textAlign: "center",
+                        cursor: "pointer",
+                        lineHeight: "normal"
+                    }} color="primary">Info</Button>{}
+                </Link>
+                <Button style={{
+                    textAlign: "center",
+                    cursor: "pointer",
+                    lineHeight: "normal"
+                }} color="primary">Hide</Button>{}
+            </div >
+
+        </Router >
+
+    );
+};
+
+
+
 export default Companies;
