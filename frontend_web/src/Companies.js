@@ -56,6 +56,7 @@ function Companies() {
 function rankFormatter(cell, row, rowIndex, formatExtraData) {
     return (
         <Router>
+
             <div style={{
                 textAlign: "center",
                 cursor: "pointer",
@@ -68,13 +69,14 @@ function rankFormatter(cell, row, rowIndex, formatExtraData) {
                         lineHeight: "normal"
                     }} color="primary">Info</Button>{}
                 </Link>
+
                 <Button style={{
                     textAlign: "center",
                     cursor: "pointer",
                     lineHeight: "normal"
                 }} color="primary">Hide</Button>{}
             </div >
-
+            <Route path='/companies/:id' component={Company} />
         </Router >
 
     );
