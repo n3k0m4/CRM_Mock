@@ -6,11 +6,8 @@ function Nav() {
     return (
         <nav>
             <h3>
-                <img src="./logo192.png" alt='logo' />
+                <img src="https://uploads-ssl.webflow.com/5da859aaea5d9e2e4b06adbd/5db17329b723f476956aa341_sharework%20fav%401x.svg" alt='logo' />
             </h3>
-            <ul className="nav-links">
-
-            </ul>
         </nav>
     )
 }

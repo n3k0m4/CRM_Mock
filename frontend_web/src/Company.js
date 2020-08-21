@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
-
+import './Company.css';
+import Nav from "./Nav";
 
 function Company({ match }) {
 
@@ -13,21 +13,46 @@ function Company({ match }) {
         const data = await fetch(`http://localhost:3000/api/companies/${match.params.id}.json`);
         //console.log(url.props.match.params.id)
         const json_data = await data.json();
-        console.log(json_data);
+        //console.log(json_data);
         setItem(json_data);
     };
 
     return (
+        <div style={{
+            padding: "50px",
+            textAlign: "center",
+            cursor: "pointer",
+            lineHeight: "normal",
 
-        <div>
-
-            <h3>ID : {item.id}</h3>
-            <h3>Company's name : {item.name}</h3>
-            <h3>{item.website}</h3>
-            <h3>{item.city}</h3>
+        }}>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>id </th>
+                        <td>{item.id}</td>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th>Company's name </th>
+                        <td>{item.name}</td>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th>Website  </th>
+                        <td>{item.website === "" ? "Not available" : item.website}</td>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th>City  </th>
+                        <td>{item.city === "" ? "Not available" : item.city}</td>
+                    </tr>
+                </thead>
+            </table>
 
         </div>
-
 
     );
 }

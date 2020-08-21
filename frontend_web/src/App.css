@@ -3,12 +3,13 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  align-items: left;
+  height: 20vmin;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,16 +22,9 @@
   color: #09d3ac;
 }
 nav{
-  display: inline;
+  display: inline-flex;
   justify-content: space-around;
-  align-content: center;
+  align-content: left;
   min-height: 10vh;
-  background-color: grey;
-}
-.nav-links{
-  width: 50%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  list-style: none;
+  background-color: white;
 }

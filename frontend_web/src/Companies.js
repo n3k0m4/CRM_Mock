@@ -10,9 +10,11 @@ import Company from "./Company";
 
 function Companies() {
 
-    const Hidden_rows = [];
-    const [items, setItems] = useState([]);
+    const hiddenRows = []; // This is to store the clicked element's id so we can hide them
+    const [items, setItems] = useState([]); // To fetch the data from the jsons
+    const [state, setState] = useState(false); // To check each row's state so we can update the table
     const All_data = [];
+
     // Fetch the data from all the companies jsons and storing them on Items
     const fetchItems = async () => {
         for (let index = 1; index < 88; index++) {
@@ -21,13 +23,14 @@ function Companies() {
             items.results.forEach(element => {
                 All_data.push(element);
             });
-
             setItems(All_data);
         }
     };
-    // On rendring the page we fetch the items
+
+    // On rendring the page we fetch the items and the row's states
     useEffect(() => {
         fetchItems();
+        setState(false);
     }, []);
 
     /**
@@ -58,21 +61,23 @@ function Companies() {
      * Making the rows selectable 
      * Defining the event onSelect to apply when the user selects one row
      * Defining the onSelectAll event to help selecting a whole page at the time
+     * Check the console log to see how it works
      */
     const selectRow = {
         // You can change the mode from radio to checkbox to hide multiple rows at the same time
         mode: 'checkbox',
         onSelect: (row, isSelect, rowIndex, e) => {
+            //console.log(isSelect);
             const selected_row_id = rowIndex + 1;
-            if (!(isSelect) && selected_row_id in Hidden_rows) {
-                removeA(Hidden_rows, selected_row_id);
 
+            if (isSelect && hiddenRows.indexOf(selected_row_id.toString()) < 0) {
+                hiddenRows.push(selected_row_id.toString());
             }
-            if (isSelect && !(selected_row_id in Hidden_rows)) {
-                Hidden_rows.push(selected_row_id);
+            if (!(isSelect) && hiddenRows.indexOf(selected_row_id.toString()) > -1) {
+                hiddenRows.splice(hiddenRows.indexOf(selected_row_id.toString()), 1);
             }
-
-            console.log(Hidden_rows);
+            console.log(hiddenRows);
+            setState(true);
         },
         /**
         * Just to Handle the button that selects everything at the time (Side case)
@@ -80,15 +85,17 @@ function Companies() {
         onSelectAll: (isSelect, rows, e) => {
             if (isSelect) {
                 rows.map(element => {
-                    if (!(parseInt(element.id) in Hidden_rows)) {
-                        Hidden_rows.push(parseInt(element.id));
+                    if ((hiddenRows.indexOf(element.id) < 0)) {
+                        hiddenRows.push(element.id);
                     }
                 })
             }
-            else { Hidden_rows.splice(0, Hidden_rows.length); }
-            console.log(Hidden_rows);
+            else { hiddenRows.splice(0, hiddenRows.length); }
+            console.log(hiddenRows);
         }
+
     };
+
     return (
         /**
          * Routing the Links created rankFormatter to the company component.
@@ -100,17 +107,18 @@ function Companies() {
         <Router>
             <Switch>
                 <Route path='/companies/:id' component={Company} />
-                <BootstrapTable
-                    hover
-                    bordered
-                    condensed
-                    keyField="id"
-                    data={items}
-                    columns={columns}
-                    pagination={paginationFactory()}
-                    hiddenRows={Hidden_rows}
-                    selectRow={selectRow}
-                />
+                <div>
+                    <h4>All companies' data:</h4>
+                    <h1>{state}</h1>
+                    <BootstrapTable
+                        keyField="id"
+                        data={items}
+                        columns={columns}
+                        hiddenRows={hiddenRows}
+                        pagination={paginationFactory()}
+                        selectRow={selectRow}
+                    />
+                </div>
             </Switch>
         </Router>
     )
@@ -143,16 +151,7 @@ function rankFormatter(cell, row, rowIndex, formatExtraData) {
         </div >
     );
 };
-// Global function to remove elements from Hidden_rows when we unClick it
-function removeA(arr) {
-    var what, a = arguments, L = a.length, ax;
-    while (L > 1 && arr.length) {
-        what = a[--L];
-        while ((ax = arr.indexOf(what)) !== -1) {
-            arr.splice(ax, 1);
-        }
-    }
-    return arr;
-}
+
+
 
 export default Companies;
