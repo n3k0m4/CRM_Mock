@@ -116,8 +116,7 @@ Finally, just name similarity (aka unknown column equality because only contains
 
 
 def similar(a, b):
-    '''Given two strings, computes similarity score
-    '''
+    #Given two strings, computes similarity score
     return SequenceMatcher(lambda x: x in '(parent)', a, b,).ratio()
 
 
