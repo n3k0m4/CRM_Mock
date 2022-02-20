@@ -2,7 +2,7 @@
 
 # dependencies
 backend_web/node_modules
-
+package-lock.json
 
 
 # testing
@@ -10,4 +10,6 @@ backend_web/node_modules
 
 # production
 frontend_web/build
+frontend_web/node_modules
+frontend_web/package-lock.json
 
